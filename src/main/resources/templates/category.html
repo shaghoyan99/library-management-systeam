@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Categories</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            width: 750px;
+            margin: 40px auto;
+            background-color: #fff;
+            border: 2px solid #999;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            border: 1px solid #999;
+            padding: 8px;
+            margin-bottom: 20px;
+        }
+
+        .nav-left a {
+            margin-right: 20px;
+            text-decoration: none;
+            color: #000;
+            font-weight: 500;
+        }
+
+        .nav-right {
+            border: 1px solid #999;
+            padding: 2px 10px;
+            font-size: 14px;
+        }
+
+        /* Filters */
+        .filters {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .filters select,
+        .filters input {
+            padding: 4px;
+        }
+
+        .filters button {
+            padding: 4px 10px;
+            border: 1px solid #555;
+            background-color: #eee;
+            cursor: pointer;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #999;
+            padding: 6px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #eee;
+        }
+        .add-book-btn {
+            padding: 4px 12px;
+            border: 1px solid #555;
+            background-color: #eee;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .add-book-btn:hover {
+            background-color: #ddd;
+        }
+        .add-category-btn {
+            padding: 4px 12px;
+            border: 1px solid #555;
+            background-color: #eee;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .add-category-btn:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="navbar">
+        <div class="nav-left">
+            <a href="/books">Books</a>
+            <a href="/categories">Categories</a>
+            <a href="/members">Members</a>
+        </div>
+        <div class="nav-right">
+            <a class="add-category-btn" href="/categories/add">Add New Category</a>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="category : ${categories}">
+            <td th:text="${category.id}"></td>
+            <td th:text="${category.name}"></td>
+            <td th:text="${category.description}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
