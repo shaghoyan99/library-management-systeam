@@ -1,8 +1,8 @@
 package com.carrental.librarymanagementsysteam.controller;
 
 import com.carrental.librarymanagementsysteam.model.Book;
-import com.carrental.librarymanagementsysteam.repository.BookRepository;
-import com.carrental.librarymanagementsysteam.repository.CategoryRepository;
+import com.carrental.librarymanagementsysteam.service.BookService;
+import com.carrental.librarymanagementsysteam.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,44 +16,44 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 public class BookController {
 
-    private final BookRepository bookRepository;
-    private final CategoryRepository categoryRepository;
+    private final BookService bookService;
+    private final CategoryService categoryService;
 
     @GetMapping("/books")
     public String books(Model model) {
-        model.addAttribute("books", bookRepository.findAll());
-        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("books", bookService.findAll());
+        model.addAttribute("categories", categoryService.findAll());
         return "book";
     }
 
     @GetMapping("/books/filter")
     public String filterBooks(@RequestParam("categories") int categoryId, Model model) {
-        model.addAttribute("books", bookRepository.findAllByCategoryId(categoryId));
-        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("books", bookService.findAllByCategoryId(categoryId));
+        model.addAttribute("categories", categoryService.findAll());
         return "book";
     }
 
     @GetMapping("/books/add")
     public String addBook(ModelMap modelMap) {
-        modelMap.addAttribute("categories", categoryRepository.findAll());
+        modelMap.addAttribute("categories", categoryService.findAll());
         return "add-book";
     }
 
     @PostMapping("/books/add")
     public String addBookPost(@ModelAttribute Book book) {
-        bookRepository.save(book);
+        bookService.save(book);
         return "redirect:/books";
     }
 
     @GetMapping("/books/delete")
     public String deleteBook(@RequestParam("id") int id) {
-        bookRepository.deleteById(id);
+        bookService.deleteById(id);
         return "redirect:/books";
     }
 
     @GetMapping("/books/search")
     public String searchBooks(@RequestParam("search") String search, Model model) {
-        model.addAttribute("books", bookRepository.findAllByTitleContainingIgnoreCase(search));
+        model.addAttribute("books", bookService.findAllByTitleContainingIgnoreCase(search));
         return "book";
     }
 }

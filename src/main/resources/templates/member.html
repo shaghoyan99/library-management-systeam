@@ -48,10 +48,6 @@
             background-color: #ddd;
         }
 
-        /* Add Member button */
-        .add-member {
-            margin-bottom: 15px;
-        }
 
         .add-member button {
             padding: 6px 14px;
@@ -97,8 +93,12 @@
         </div>
     </div>
 
+    <div th:if="${msg}" class="alert alert-danger">
+        <span th:text="${msg}"></span>
+    </div>
+
     <!-- Members table -->
-    <table>
+    <table th:if="${members != null || !members.isEmpty()}">
         <thead>
         <tr>
             <th>ID</th>
@@ -128,6 +128,9 @@
         </tr>
         </tbody>
     </table>
+    <p th:if="${members == null || members.isEmpty()}">
+        Անդամներ չկան
+    </p>
 </div>
 <div class="modal fade" id="borrowModal" tabindex="-1" aria-labelledby="borrowModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -142,12 +145,14 @@
 
                     <div class="mb-3">
                         <label class="form-label">Select Book</label>
-                        <select name="bookId" class="form-select" required>
-                            <option value="">-- Choose a Book --</option>
-                            <option th:each="book : ${books}"
-                                    th:value="${book.id}"
-                                    th:text="${book.title + ' - ' + book.author}"></option>
-                        </select>
+                        <label>
+                            <select name="bookId" class="form-select" required>
+                                <option value="">-- Choose a Book --</option>
+                                <option th:each="book : ${books}"
+                                        th:value="${book.id}"
+                                        th:text="${book.title + ' - ' + book.author}"></option>
+                            </select>
+                        </label>
                     </div>
                 </div>
                 <div class="modal-footer">

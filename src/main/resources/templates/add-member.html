@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="hy" xmlns:th="http://www.thymeleaf.org">
+<html lang="hy">
 <head>
     <meta charset="UTF-8">
     <title>Add Member</title>
@@ -22,15 +22,21 @@
         <form action="/members/add" method="POST">
             <div class="mb-3">
                 <label class="form-label">Full Name</label>
-                <input type="text" name="fullName" class="form-control" placeholder="John Doe" required>
+                <label>
+                    <input type="text" name="fullName" class="form-control" placeholder="John Doe" required>
+                </label>
             </div>
             <div class="mb-3">
                 <label class="form-label">Email Address</label>
-                <input type="email" name="email" class="form-control" placeholder="example@mail.com" required>
+                <label>
+                    <input type="email" name="email" class="form-control" placeholder="example@mail.com" required>
+                </label>
             </div>
             <div class="mb-3">
                 <label class="form-label">Phone Number</label>
-                <input type="text" name="phoneNumber" class="form-control" placeholder="+374..." required>
+                <label>
+                    <input type="text" name="phoneNumber" class="form-control" placeholder="+374..." required>
+                </label>
             </div>
             <button type="submit" class="btn btn-primary w-100">Add Member</button>
         </form>
