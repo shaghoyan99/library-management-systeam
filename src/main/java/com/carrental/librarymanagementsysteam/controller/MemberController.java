@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequiredArgsConstructor
@@ -45,8 +46,8 @@ public class MemberController {
     }
 
     @PostMapping("/members/add")
-    public String addMemberPost(@ModelAttribute Member member) {
-        memberService.save(member);
+    public String addMemberPost(@ModelAttribute Member member, @RequestParam("pic") MultipartFile multipartFile) {
+        memberService.save(member,multipartFile);
         return "redirect:/members";
     }
 

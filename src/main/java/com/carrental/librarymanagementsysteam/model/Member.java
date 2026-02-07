@@ -33,6 +33,8 @@ public class Member {
 
     private String phoneNumber;
 
+    private String pictureName;
+
     private LocalDateTime registrationDate;
 
     @ManyToMany

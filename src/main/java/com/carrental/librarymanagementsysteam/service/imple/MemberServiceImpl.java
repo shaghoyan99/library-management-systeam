@@ -7,8 +7,12 @@ import com.carrental.librarymanagementsysteam.repository.MemberRepository;
 import com.carrental.librarymanagementsysteam.service.BookService;
 import com.carrental.librarymanagementsysteam.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,6 +22,9 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
     private final BookService bookService;
+
+    @Value("${library.management.upload.image.directory.path}")
+    private String imageDirectoryPath;
 
     @Override
     public List<Member> findAll() {
@@ -30,7 +37,17 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void save(Member member) {
+    public void save(Member member, MultipartFile multipartFile) {
+        if (multipartFile != null && !multipartFile.isEmpty()) {
+            String fileName = System.currentTimeMillis() + "_" + multipartFile.getOriginalFilename();
+            File file = new File(imageDirectoryPath + fileName);
+            try{
+                multipartFile.transferTo(file);
+                member.setPictureName(fileName);
+            }catch (IOException e){
+                throw new RuntimeException("File not found");
+            }
+        }
         member.setRegistrationDate(LocalDateTime.now());
         memberRepository.save(member);
     }

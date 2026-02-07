@@ -51,6 +51,17 @@
     </style>
 </head>
 <body>
+<span th:if="${msg} != null">
+    <span style="color: red" th:text="${msg}"> </span>
+</span>
+<div class="navbar">
+    <span th:if="${user} != null"> Welcome <span th:text="${user.getName() + ' ' + user.getSurname()}"></span></span>
+    <img th:if="${user.getPictureName() != null && !user.getPictureName().equals('')}" th:src="@{/image/get(pic=${user.pictureName})}" width="50">
+    <img th:if="${user.getPictureName() == null || user.getPictureName().equals('')}" th:src="@{/images/img.jpeg}" width="50">
+    <a th:if="${user}  != null" href="/logout">Logout</a> <br><br>
+    <a th:if="${user}  == null" href="/login">Login</a> <br><br>
+    <a th:if="${user}  == null" href="/registerPage">Register</a> <br><br>
+</div>
 
 <div class="container">
     <div class="title">Library Management System</div>
@@ -61,6 +72,5 @@
         <button><a href="/members">Members</a></button>
     </div>
 </div>
-
 </body>
 </html>

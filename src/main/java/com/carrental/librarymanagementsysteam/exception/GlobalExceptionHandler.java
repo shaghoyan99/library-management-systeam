@@ -1,5 +1,6 @@
 package com.carrental.librarymanagementsysteam.exception;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -23,5 +24,14 @@ public class GlobalExceptionHandler {
 
         redirectAttributes.addFlashAttribute("msg", ex.getMessage());
         return "redirect:/members";
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public String handleUserNotFound(
+            UsernameNotFoundException ex,
+            RedirectAttributes redirectAttributes) {
+
+        redirectAttributes.addFlashAttribute("msg", ex.getMessage());
+        return "redirect:/loginPage";
     }
 }
